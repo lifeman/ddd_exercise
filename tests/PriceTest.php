@@ -41,4 +41,13 @@ class PriceTest extends TestCase
         $expected = new Price(10.5);
         $this->assertEquals($expected, $actual);
     }
+
+    public function testGetWithVat()
+    {
+        $a = new Price(10);
+        $actual = $a->getWithVat();
+        $expected = 10;
+        $this->assertEquals($expected, $actual);
+    }
+
 }

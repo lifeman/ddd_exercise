@@ -14,14 +14,14 @@ class CartTest extends TestCase
 
     public function testCalculateEmptyCart()
     {
-        $cart = new Cart;
+        $cart = new Cart(11);
         $expected = new CartDetail([], new Price(0.0));
         $this->assertEquals($expected, $cart->calculate());
     }
 
     public function testAddSingleproductToEmpty()
     {
-        $cart = new Cart();
+        $cart = new Cart(1);
         $cart->add('a', new Price(10));
 
         $expectedItem = new ItemDetail('a', new Price(10), 1);
@@ -31,7 +31,7 @@ class CartTest extends TestCase
 
     public function testAddTwoDifferentProducts()
     {
-        $cart = new Cart();
+        $cart = new Cart(1);
         $cart->add('a', new Price(10));
         $cart->add('b', new Price(20), 2);
 
@@ -48,7 +48,7 @@ class CartTest extends TestCase
 
     public function testRemove()
     {
-        $cart = new Cart();
+        $cart = new Cart(1);
         $cart->add('a', new Price(10));
         $cart->add('b', new Price(10));
         $cart->add('c', new Price(10));
@@ -65,7 +65,7 @@ class CartTest extends TestCase
 
     public function testChangeAmount()
     {
-        $cart = new Cart();
+        $cart = new Cart(1);
         $cart->add('a', new Price(10));
         $cart->changeAmount('a', 10);
         $actual = $cart->calculate();
@@ -74,6 +74,14 @@ class CartTest extends TestCase
         ], new Price(100.0));
         $this->assertEquals($expected, $actual);
 
+    }
+
+    public function testGetId()
+    {
+        $cart = new Cart(1);
+        $actual = $cart->getId();
+        $expected = 1;
+        $this->assertEquals($expected, $actual);
     }
 
 }
