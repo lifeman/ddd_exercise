@@ -7,7 +7,7 @@
 
 namespace Lifeman\Cart\Domain;
 
-class DetailItem
+class ItemDetail
 {
     /**
      * @var string

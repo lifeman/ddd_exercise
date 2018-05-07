@@ -29,9 +29,9 @@ class Item
         $this->amount = $amount;
     }
 
-    public function toDetail(): DetailItem
+    public function toDetail(): ItemDetail
     {
-        return new DetailItem($this->productId, $this->unitPrice, $this->amount);
+        return new ItemDetail($this->productId, $this->unitPrice, $this->amount);
     }
 
     public function getProductId(): string
@@ -56,5 +56,10 @@ class Item
     {
         $this->checkAmount($amount);
         $this->amount = $amount;
+    }
+
+    public function calculatePrice(): Price
+    {
+        return $this->unitPrice->multiply($this->amount);
     }
 }

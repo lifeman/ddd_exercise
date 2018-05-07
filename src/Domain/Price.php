@@ -26,4 +26,30 @@ class Price
     {
         return $this->withVat;
     }
+
+    /**
+     * @param array $prices
+     * @return Price
+     */
+    public static function sum(array $prices): self
+    {
+        return array_reduce($prices, function (self $carry, self $price) {
+            return $carry->add($price);
+        }, new self(0.0));
+    }
+
+    public function add(self $adder): self
+    {
+        $withVat = $this->withVat + $adder->withVat;
+        return new self($withVat);
+    }
+
+    public function multiply(int $multiplier): self
+    {
+        $withVat = $this->withVat * $multiplier;
+        return new self($withVat);
+    }
+
+
+
 }

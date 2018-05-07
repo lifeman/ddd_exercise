@@ -10,7 +10,7 @@ namespace Lifeman\Cart\Domain;
 class CartDetail
 {
     /**
-     * @var array
+     * @var ItemDetail[]
      */
     private $items;
     /**
@@ -25,7 +25,7 @@ class CartDetail
     }
 
     /**
-     * @return array
+     * @return ItemDetail[]
      */
     public function getItems(): array
     {

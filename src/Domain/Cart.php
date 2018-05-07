@@ -33,15 +33,17 @@ class Cart
 
     public function calculate(): CartDetail
     {
-        $detailItems = array_map(function (Item $item): DetailItem {
+        $detailItems = array_map(function (Item $item): ItemDetail {
             return $item->toDetail();
         }, $this->items);
 
-        $totalPrice = array_reduce($detailItems, function (float $carry, DetailItem $item) {
-            return $carry + $item->getPrice()->getWithVat() * $item->getAmount();
-        }, 0.0);
+        $prices = array_map(function (Item $item): Price {
+            return $item->calculatePrice();
+        }, $this->items);
 
-        return new CartDetail(array_values($detailItems), new Price($totalPrice));
+        $totalPrice = Price::sum($prices);
+
+        return new CartDetail(array_values($detailItems), $totalPrice);
     }
 
     private function find($productId)
@@ -51,6 +53,7 @@ class Cart
                 return $item;
             }
         }
+        throw new ProductNotInCartException();
     }
 
     private function findKey($productId)

@@ -16,7 +16,7 @@ class ItemTest extends TestCase
     public function testToDetail()
     {
         $item =  new Item('x', new Price(5.0), 2);
-        $expected = new DetailItem('x', new Price(5.0), 2);
+        $expected = new ItemDetail('x', new Price(5.0), 2);
 
         Assert::assertEquals($expected, $item->toDetail());
     }
@@ -25,9 +25,18 @@ class ItemTest extends TestCase
     {
         $item =  new Item('x', new Price(5.0), 2);
         $item->add(5);
-        $expected = new DetailItem('x', new Price(5.0), 7);
+        $expected = new ItemDetail('x', new Price(5.0), 7);
         Assert::assertEquals($expected, $item->toDetail());
 
+    }
+
+    public function testCalculateTotalPrice()
+    {
+        $item = new Item('a', new Price(5), 3);
+        $price = $item->calculatePrice();
+
+        $expected = new Price(15);
+        $this->assertEquals($expected, $price);
     }
 
 }
