@@ -19,12 +19,21 @@ class Cart
         }
     }
 
+    /**
+     * @param string $productId
+     * @throws ProductNotInCartException
+     */
     public function remove(string $productId): void
     {
         $key = $this->findKey($productId);
         unset($this->items[$key]);
     }
 
+    /**
+     * @param string $productId
+     * @param int $amount
+     * @throws ProductNotInCartException
+     */
     public function changeAmount(string $productId, int $amount): void
     {
         $item = $this->find($productId);
@@ -46,6 +55,11 @@ class Cart
         return new CartDetail(array_values($detailItems), $totalPrice);
     }
 
+    /**
+     * @param $productId
+     * @return Item
+     * @throws ProductNotInCartException
+     */
     private function find($productId): Item
     {
         foreach ($this->items as $item) {
@@ -56,6 +70,11 @@ class Cart
         throw new ProductNotInCartException();
     }
 
+    /**
+     * @param $productId
+     * @return string
+     * @throws ProductNotInCartException
+     */
     private function findKey($productId): string
     {
         foreach ($this->items as $key => $item) {
@@ -63,5 +82,6 @@ class Cart
                 return $key;
             }
         }
+        throw new ProductNotInCartException();
     }
 }

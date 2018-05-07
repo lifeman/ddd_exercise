@@ -22,8 +22,16 @@ class Item
      */
     private $amount;
 
+    /**
+     * Item constructor.
+     * @param string $productId
+     * @param Price $unitPrice
+     * @param int $amount
+     * @throws AmountMustBePositiveException
+     */
     public function __construct(string $productId, Price $unitPrice, int $amount)
     {
+        $this->checkAmount($amount);
         $this->productId = $productId;
         $this->unitPrice = $unitPrice;
         $this->amount = $amount;
@@ -39,12 +47,20 @@ class Item
         return $this->productId;
     }
 
+    /**
+     * @param int $amount
+     * @throws AmountMustBePositiveException
+     */
     public function add(int $amount)
     {
         $this->checkAmount($amount);
         $this->amount = $this->amount + $amount;
     }
 
+    /**
+     * @param $amount
+     * @throws AmountMustBePositiveException
+     */
     private function checkAmount($amount)
     {
         if ($amount < 0) {
@@ -52,6 +68,10 @@ class Item
         }
     }
 
+    /**
+     * @param int $amount
+     * @throws AmountMustBePositiveException
+     */
     public function changeAmount(int $amount)
     {
         $this->checkAmount($amount);
