@@ -1,0 +1,6 @@
+Lifeman\Cart\Domain\Price:
+  type: embeddable
+
+  fields:
+    withVat:
+      type: float

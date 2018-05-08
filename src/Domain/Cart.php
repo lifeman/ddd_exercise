@@ -2,10 +2,13 @@
 
 namespace Lifeman\Cart\Domain;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 class Cart
 {
     /**
-     * @var Item[]
+     * @var Collection Item[]
      */
     private $items = [];
     /**
@@ -20,6 +23,7 @@ class Cart
     public function __construct(string $id)
     {
         $this->id = $id;
+        $this->items = new ArrayCollection();
     }
 
     public function add(string $productId, Price $unitPrice, int $amount = 1): void
@@ -55,13 +59,13 @@ class Cart
 
     public function calculate(): CartDetail
     {
-        $detailItems = array_map(function (Item $item): ItemDetail {
+        $detailItems = $this->items->map(function (Item $item): ItemDetail {
             return $item->toDetail();
-        }, $this->items);
+        })->getValues();
 
-        $prices = array_map(function (Item $item): Price {
+        $prices = $this->items->map(function (Item $item): Price {
             return $item->calculatePrice();
-        }, $this->items);
+        })->getValues();
 
         $totalPrice = Price::sum($prices);
 

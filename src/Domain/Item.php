@@ -9,6 +9,7 @@ namespace Lifeman\Cart\Domain;
 
 class Item
 {
+    private $generatedId;
     /**
      * @var string
      */
