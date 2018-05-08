@@ -58,7 +58,7 @@ class Item
     }
 
     /**
-     * @param $amount
+     * @param int $amount
      * @throws AmountMustBePositiveException
      */
     private function checkAmount($amount)

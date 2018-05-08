@@ -69,7 +69,7 @@ class Cart
     }
 
     /**
-     * @param $productId
+     * @param string $productId
      * @return Item
      * @throws ProductNotInCartException
      */
@@ -84,7 +84,7 @@ class Cart
     }
 
     /**
-     * @param $productId
+     * @param string $productId
      * @return string
      * @throws ProductNotInCartException
      */
